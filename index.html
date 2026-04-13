@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毛泽东思维体系蒸馏项目</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; color: #1a1a1a; background: #f5f4f0; padding: 2rem; line-height: 1.6; }
+.container { max-width: 960px; margin: 0 auto; }
+
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 6px; }
+h2 { font-size: 13px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin: 1.5rem 0 10px; }
+
+.hero { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+.hero-sub { font-size: 13px; color: #666; margin-top: 4px; }
+.hero-flow { display: flex; align-items: center; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+.pill { font-size: 12px; padding: 3px 10px; border-radius: 20px; background: #f5f4f0; border: 0.5px solid #ddd; color: #555; }
+.arrow { font-size: 12px; color: #aaa; }
+
+.four-axis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+.axis-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1rem 1.1rem; }
+.axis-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.axis-label { font-size: 13px; font-weight: 500; }
+.axis-sub { font-size: 11px; color: #888; margin-top: 1px; }
+
+.period-list { display: flex; flex-direction: column; gap: 5px; }
+.period-row { display: flex; align-items: baseline; gap: 8px; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 10px; font-weight: 500; flex-shrink: 0; }
+.period-text { font-size: 12px; color: #666; }
+
+.tag-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; border: 0.5px solid #ddd; color: #555; background: #f5f4f0; }
+.tag-blue { background: #e6f1fb; color: #0c447c; border: none; }
+.tag-teal { background: #e1f5ee; color: #085041; border: none; }
+.tag-purple { background: #eeedfe; color: #3c3489; border: none; }
+
+.tier-list { display: flex; flex-direction: column; gap: 5px; }
+.tier-row { display: flex; align-items: center; gap: 8px; }
+.tier-num { width: 20px; height: 20px; border-radius: 4px; font-size: 10px; font-weight: 500; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.tier-text { font-size: 12px; color: #555; }
+.stars { font-size: 10px; color: #ba7517; }
+
+.rel-list { display: flex; flex-direction: column; gap: 6px; }
+.rel-row { display: flex; gap: 8px; }
+.rel-icon { font-size: 13px; flex-shrink: 0; width: 16px; line-height: 1.4; }
+.rel-title { font-size: 12px; font-weight: 500; }
+.rel-sub { font-size: 11px; color: #888; }
+
+.section-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+.card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1rem 1.1rem; }
+.card-title { font-size: 13px; font-weight: 500; margin-bottom: 10px; }
+
+.layer { margin-bottom: 10px; }
+.layer-header { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+.lbadge { font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 8px; }
+.layer-label { font-size: 12px; font-weight: 500; }
+.nodes { display: flex; flex-direction: column; gap: 3px; padding-left: 14px; }
+.nrow { display: flex; align-items: center; gap: 6px; }
+.ndot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.ntext { font-size: 11px; color: #666; }
+.nbold { font-weight: 500; color: #1a1a1a; }
+
+.out-layers { display: flex; flex-direction: column; gap: 8px; }
+.out-row { display: flex; align-items: flex-start; gap: 10px; }
+.out-num { width: 22px; height: 22px; border-radius: 50%; font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.out-title { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+.out-sub { font-size: 11px; color: #666; }
+.role-row { display: flex; gap: 6px; margin-top: 12px; }
+.rbadge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+
+.schema-wrap { background: #f5f4f0; border: 0.5px solid #ddd; border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 1.5rem; }
+.schema-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.sf { background: #fff; border: 0.5px solid #ddd; border-radius: 8px; padding: 8px 10px; }
+.sk { font-size: 10px; font-weight: 500; color: #888; margin-bottom: 2px; }
+.sv { font-size: 11px; color: #1a1a1a; }
+
+.roadmap { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 1.5rem; }
+.phases { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.ph-head { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.ph-num { width: 22px; height: 22px; border-radius: 50%; font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ph-name { font-size: 12px; font-weight: 500; }
+.ph-items { display: flex; flex-direction: column; gap: 4px; }
+.ph-item { display: flex; align-items: flex-start; gap: 5px; }
+.todo { font-size: 11px; color: #aaa; }
+.itext { font-size: 11px; color: #666; line-height: 1.4; }
+
+.booklist { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+.book-cat { }
+.bcat { font-size: 10px; font-weight: 500; color: #888; margin-bottom: 3px; }
+.bitem { font-size: 11px; color: #555; padding: 1px 0; }
+
+.trigger-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+.trigger-table th { font-size: 11px; font-weight: 500; color: #888; text-align: left; padding: 4px 8px; border-bottom: 0.5px solid #ddd; }
+.trigger-table td { padding: 4px 8px; border-bottom: 0.5px solid #f0f0f0; color: #555; }
+.trigger-table tr:last-child td { border-bottom: none; }
+
+.credibility-note { background: #faeeda; border-radius: 8px; padding: 8px 10px; margin-top: 10px; font-size: 11px; color: #633806; }
+
+footer { text-align: center; font-size: 11px; color: #aaa; margin-top: 2rem; padding-top: 1rem; border-top: 0.5px solid #ddd; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <h1>毛泽东思维体系蒸馏项目</h1>
+  <div class="hero-sub">状态：规划中 · 长期项目 · 不急完成 · 创建于 2026-04-13</div>
+  <div class="hero-sub" style="margin-top:6px;">将毛泽东的思维框架结构化为可调用知识库 + 自动路由角色模拟系统</div>
+  <div class="hero-flow">
+    <span class="pill">你的问题</span><span class="arrow">→</span>
+    <span class="pill">L0 路由识别</span><span class="arrow">→</span>
+    <span class="pill">四轴检索</span><span class="arrow">→</span>
+    <span class="pill">多维交叉分析</span><span class="arrow">→</span>
+    <span class="pill">三期视角校验输出</span>
+  </div>
+</div>
+
+<h2>四轴索引体系</h2>
+<div class="four-axis">
+
+  <div class="axis-card">
+    <div class="axis-header">
+      <div class="dot" style="background:#ba7517;"></div>
+      <div><div class="axis-label">轴一 · 时间轴</div><div class="axis-sub">四期 · 按思想成熟度划分</div></div>
+    </div>
+    <div class="period-list">
+      <div class="period-row">
+        <span class="badge" style="background:#f1efe8;color:#444;">求学期</span>
+        <span class="period-text">1893–1921 · 0–28岁 · 儒家+西方+马列混合，世界观形成</span>
+      </div>
+      <div class="period-row">
+        <span class="badge" style="background:#e6f1fb;color:#0c447c;">探索期</span>
+        <span class="period-text">1921–1935 · 28–42岁 · 大量试错，农村包围城市路线确立</span>
+      </div>
+      <div class="period-row">
+        <span class="badge" style="background:#e1f5ee;color:#085041;">成熟期</span>
+        <span class="period-text">1935–1949 · 42–56岁 · 核心著作集中输出，体系系统化 ★</span>
+      </div>
+      <div class="period-row">
+        <span class="badge" style="background:#fcebeb;color:#791f1f;">执政期</span>
+        <span class="period-text">1949–1976 · 56–83岁 · 思想漂移，需降权参考</span>
+      </div>
+    </div>
+    <div class="credibility-note">执政期可信度：1949–57 ★★★★ · 1957–76 ★★★（思想漂移）· 文革期间 ★★（批判性参考）</div>
+  </div>
+
+  <div class="axis-card">
+    <div class="axis-header">
+      <div class="dot" style="background:#7f77dd;"></div>
+      <div><div class="axis-label">轴二 · 类别轴</div><div class="axis-sub">七类 · 可多选，支持交叉打标</div></div>
+    </div>
+    <div class="tag-grid">
+      <span class="tag tag-blue">哲学</span>
+      <span class="tag tag-blue">政治</span>
+      <span class="tag tag-blue">军事</span>
+      <span class="tag tag-teal">经济</span>
+      <span class="tag tag-teal">外交</span>
+      <span class="tag">文化-中</span>
+      <span class="tag">文化-西</span>
+    </div>
+    <div style="margin-top:10px;">
+      <div class="sk" style="margin-bottom:5px;">交叉轴（核心字段）— 毛的多元思维模型</div>
+      <div class="tag-grid">
+        <span class="tag tag-purple">哲学×军事</span>
+        <span class="tag tag-purple">政治×经济</span>
+        <span class="tag tag-purple">军事×关系</span>
+        <span class="tag tag-purple">哲学×政治</span>
+        <span class="tag tag-purple">经济×外交</span>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <div class="sk" style="margin-bottom:4px;">文化-中 子类（特别标注）</div>
+      <div class="tag-grid">
+        <span class="tag">儒家批判继承</span>
+        <span class="tag">佛学禅宗</span>
+        <span class="tag">传统史学</span>
+        <span class="tag">风水命相（旁观）</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="axis-card">
+    <div class="axis-header">
+      <div class="dot" style="background:#639922;"></div>
+      <div><div class="axis-label">轴三 · 来源轴</div><div class="axis-sub">四级 · 含精读书目</div></div>
+    </div>
+    <div class="tier-list">
+      <div class="tier-row">
+        <div class="tier-num" style="background:#e1f5ee;color:#085041;">1</div>
+        <div><div class="tier-text">毛选1–4卷（官方收录）</div><div class="stars">★★★★★</div></div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-num" style="background:#e6f1fb;color:#0c447c;">2</div>
+        <div><div class="tier-text">毛选5卷 / 建国后讲话 / 批示 / 党内文件</div><div class="stars">★★★★</div></div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-num" style="background:#faeeda;color:#633806;">3</div>
+        <div><div class="tier-text">回忆录 / 他人转述 / 谈话记录 / 社评</div><div class="stars">★★★</div></div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-num" style="background:#f1efe8;color:#444;">4</div>
+        <div><div class="tier-text">毛精读/推荐书目（思想来源层）</div><div class="stars">★★★★</div></div>
+      </div>
+    </div>
+    <div class="booklist">
+      <div class="book-cat">
+        <div class="bcat">中国古典</div>
+        <div class="bitem">《资治通鉴》读17遍</div>
+        <div class="bitem">《史记》《汉书》</div>
+        <div class="bcat" style="margin-top:6px;">兵法</div>
+        <div class="bitem">《孙子兵法》《三十六计》</div>
+        <div class="bcat" style="margin-top:6px;">佛学</div>
+        <div class="bitem">《金刚经》《六祖坛经》</div>
+      </div>
+      <div class="book-cat">
+        <div class="bcat">马列/西方哲学</div>
+        <div class="bitem">《共产党宣言》《资本论》</div>
+        <div class="bitem">黑格尔逻辑学</div>
+        <div class="bcat" style="margin-top:6px;">文学</div>
+        <div class="bitem">《红楼梦》《水浒传》</div>
+        <div class="bcat" style="margin-top:6px;">近代</div>
+        <div class="bitem">《天演论》卢梭 达尔文</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="axis-card">
+    <div class="axis-header">
+      <div class="dot" style="background:#d85a30;"></div>
+      <div><div class="axis-label">轴四 · 关系轴</div><div class="axis-sub">动态关系——敌可变友，友可变敌</div></div>
+    </div>
+    <div class="rel-list">
+      <div class="rel-row">
+        <div class="rel-icon" style="color:#e24b4a;">▲</div>
+        <div>
+          <div class="rel-title">对敌</div>
+          <div class="rel-sub">国内（蒋/地主/反动派）· 国外（日/美）· 持久战/纸老虎论</div>
+        </div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-icon" style="color:#1d9e75;">●</div>
+        <div>
+          <div class="rel-title">对友</div>
+          <div class="rel-sub">党内同志（批评自我批评）· 工农群众（群众路线）· 知识分子（态度多变）</div>
+        </div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-icon" style="color:#378add;">◆</div>
+        <div>
+          <div class="rel-title">对盟友</div>
+          <div class="rel-sub">苏联（一边倒→决裂）· 第三世界（三个世界理论）</div>
+        </div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-icon" style="color:#7f77dd;">■</div>
+        <div>
+          <div class="rel-title">主要国家专项</div>
+          <div class="rel-sub">美（纸老虎→乒乓→尼克松）· 日（区分军国主义与日本人民）· 苏（师从→平等→对抗）· 印/朝/越</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2>知识节点 Schema</h2>
+<div class="schema-wrap">
+  <div class="schema-grid">
+    <div class="sf"><div class="sk">id</div><div class="sv">mao-001</div></div>
+    <div class="sf"><div class="sk">type</div><div class="sv">文章 / 战役 / 书目 / 讲话 / 批示 / 诗词 / 对话</div></div>
+    <div class="sf"><div class="sk">period</div><div class="sv" style="background:#e1f5ee;color:#085041;padding:1px 6px;border-radius:8px;display:inline-block;">成熟期</div></div>
+    <div class="sf"><div class="sk">source_tier</div><div class="sv">一级 ★★★★★</div></div>
+    <div class="sf"><div class="sk">category</div><div class="sv">哲学 · 军事（可多选）</div></div>
+    <div class="sf"><div class="sk">cross_axis</div><div class="sv">哲学×军事 · 政治×经济</div></div>
+    <div class="sf"><div class="sk">core_framework</div><div class="sv">矛盾分析法</div></div>
+    <div class="sf"><div class="sk">modern_application</div><div class="sv">问题定位 · 资源集中 · 竞争分析</div></div>
+  </div>
+</div>
+
+<div class="section-row">
+  <div class="card">
+    <div class="card-title">技能树结构</div>
+    <div class="layer">
+      <div class="layer-header">
+        <span class="lbadge" style="background:#fcebeb;color:#791f1f;">L0</span>
+        <span class="layer-label">路由层（自动选角色）</span>
+      </div>
+      <div class="nodes">
+        <div class="nrow"><div class="ndot" style="background:#e24b4a;"></div><span class="ntext nbold">mao-router.md</span></div>
+        <div class="nrow"><div class="ndot" style="background:#aaa;"></div><span class="ntext">意图识别 → 单角色 or 多角色并行触发</span></div>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <span class="lbadge" style="background:#faeeda;color:#633806;">L1</span>
+        <span class="layer-label">角色层（谁来回答）</span>
+      </div>
+      <div class="nodes">
+        <div class="nrow"><div class="ndot" style="background:#378add;"></div><span class="ntext">mao-explorer.md · 探索期 28–42岁</span></div>
+        <div class="nrow"><div class="ndot" style="background:#1d9e75;"></div><span class="ntext nbold">mao-mature.md · 成熟期 42–56岁 ★主权重</span></div>
+        <div class="nrow"><div class="ndot" style="background:#e24b4a;"></div><span class="ntext">mao-ruler.md · 执政期 56–83岁 ↓降权</span></div>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <span class="lbadge" style="background:#e1f5ee;color:#085041;">L2</span>
+        <span class="layer-label">框架层（用什么方法）</span>
+      </div>
+      <div class="nodes">
+        <div class="nrow"><div class="ndot" style="background:#7f77dd;"></div><span class="ntext">contradiction-analysis · 矛盾分析法</span></div>
+        <div class="nrow"><div class="ndot" style="background:#7f77dd;"></div><span class="ntext">practice-theory · 实践认识论</span></div>
+        <div class="nrow"><div class="ndot" style="background:#7f77dd;"></div><span class="ntext">united-front · 统一战线</span></div>
+        <div class="nrow"><div class="ndot" style="background:#7f77dd;"></div><span class="ntext">mass-line · 群众路线</span></div>
+        <div class="nrow"><div class="ndot" style="background:#7f77dd;"></div><span class="ntext">protracted-war · 持久战/阶段论</span></div>
+        <div class="nrow"><div class="ndot" style="background:#7f77dd;"></div><span class="ntext">investigation-first · 调查研究法</span></div>
+        <div class="nrow"><div class="ndot" style="background:#7f77dd;"></div><span class="ntext">enemy-friend · 敌我判断框架</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">标准输出格式（毛式交叉分析）</div>
+    <div class="out-layers">
+      <div class="out-row">
+        <div class="out-num" style="background:#e6f1fb;color:#0c447c;">1</div>
+        <div><div class="out-title">主要矛盾定位 · 哲学轴</div><div class="out-sub">当前最关键的张力是什么</div></div>
+      </div>
+      <div class="out-row">
+        <div class="out-num" style="background:#e1f5ee;color:#085041;">2</div>
+        <div><div class="out-title">多轴扫描</div><div class="out-sub">政治 · 军事/竞争 · 经济/资源 · 关系（谁是敌/友/可争取）</div></div>
+      </div>
+      <div class="out-row">
+        <div class="out-num" style="background:#faeeda;color:#633806;">3</div>
+        <div><div class="out-title">矛盾转化路径 · 时间轴</div><div class="out-sub">现阶段任务 → 转化条件 → 下阶段目标</div></div>
+      </div>
+      <div class="out-row">
+        <div class="out-num" style="background:#fcebeb;color:#791f1f;">4</div>
+        <div><div class="out-title">三期校验 · 防飘逸</div><div class="out-sub">最多3角色并行，成熟期永远主权重</div></div>
+      </div>
+    </div>
+    <div class="role-row">
+      <span class="rbadge" style="background:#e6f1fb;color:#0c447c;">🔵 探索期</span>
+      <span class="rbadge" style="background:#e1f5ee;color:#085041;">🟡 成熟期 ★</span>
+      <span class="rbadge" style="background:#fcebeb;color:#791f1f;">🔴 执政期 ↓</span>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="sk" style="margin-bottom:6px;">多角色触发规则</div>
+      <table class="trigger-table">
+        <thead><tr><th>问题类型</th><th>触发角色组合</th></tr></thead>
+        <tbody>
+          <tr><td>哲学/方法论</td><td>探索 + 成熟 + 执政</td></tr>
+          <tr><td>军事/竞争</td><td>探索 + 成熟 + 执政</td></tr>
+          <tr><td>经济/资源</td><td>成熟 + 执政前 + 执政后</td></tr>
+          <tr><td>人际/组织</td><td>求学 + 探索 + 成熟</td></tr>
+          <tr><td>外交/大局</td><td>成熟 + 执政前 + 执政后</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<h2>执行路线图</h2>
+<div class="roadmap">
+  <div class="phases">
+    <div>
+      <div class="ph-head">
+        <div class="ph-num" style="background:#e1f5ee;color:#085041;">1</div>
+        <div class="ph-name">阶段一 · Claude Project</div>
+      </div>
+      <div class="ph-items">
+        <div class="ph-item"><span class="todo">○</span><span class="itext">mao-router.md（路由层）</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">mao-mature.md（成熟期，优先）</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">contradiction-analysis.md</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">mao-001 矛盾论节点</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">mao-002 实践论节点</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">mao-003 论持久战节点</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="ph-head">
+        <div class="ph-num" style="background:#e6f1fb;color:#0c447c;">2</div>
+        <div class="ph-name">阶段二 · 知识扩充</div>
+      </div>
+      <div class="ph-items">
+        <div class="ph-item"><span class="todo">○</span><span class="itext">核心文章20篇（毛选精华）</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">战役案例10个</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">书目影响图谱</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">关系轴专项节点</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">mao-explorer.md</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">mao-ruler.md</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="ph-head">
+        <div class="ph-num" style="background:#eeedfe;color:#3c3489;">3</div>
+        <div class="ph-name">阶段三 · 本地迁移</div>
+      </div>
+      <div class="ph-items">
+        <div class="ph-item"><span class="todo">○</span><span class="itext">JSON知识库（检索层）</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">HTML多角色对比界面</span></div>
+        <div class="ph-item"><span class="todo">○</span><span class="itext">Claude Code集成</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>毛泽东思维体系蒸馏项目 · ai/mao-thinking-system/ · 2026-04-13</footer>
+
+</div>
+</body>
+</html>
